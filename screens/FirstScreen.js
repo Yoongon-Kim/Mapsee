@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity,Text } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity,Text,Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 const FirstScreen=({navigation})=>{
 
@@ -11,8 +13,8 @@ const FirstScreen=({navigation})=>{
     }
 
     return(
-        <View style={{flex:1, backgroundColor:'white',alignItems:'center', justifyContent:'center',}}>
-            <View style={{padding:200, marginBottom:80}}>
+        <View style={{height:height*1.1, backgroundColor:'white',alignItems:'center', justifyContent:'center',}}>
+            <View style={{padding:height*0.3,marginBottom:height*0.2}}>
                 <Image
                 style={{alignItems:'center', justifyContent:'center'}}
                 source={require('../assets/mapsee_logo.png')}
@@ -39,7 +41,7 @@ export default FirstScreen
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
+        height:height*1.1,
         justifyContent:'center',
         alignItems:'center'
     },

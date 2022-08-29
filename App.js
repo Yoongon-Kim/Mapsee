@@ -7,12 +7,13 @@ import FirstScreen from './screens/FirstScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import AfterLoginScreen from './screens/AfterLoginScreen';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='First'>
         <Stack.Screen options={{headerShown:false}} name="First" component={FirstScreen} />
         <Stack.Screen options={{headerShown:false}} name="Register" component={RegisterScreen} />
         <Stack.Screen options={{headerShown:false}} name="Login" component={LoginScreen} />
