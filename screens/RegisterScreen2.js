@@ -5,37 +5,26 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 
 const { height } = Dimensions.get('window');
 
-const RegisterScreen=({ navigation })=>{
-    const [email,setEmail]=useState('')
+const RegisterScreen2=({ navigation, route })=>{
+    const email = route.params;
     const [password,setPassword]=useState('')
     const [passwordCheck,setPasswordCheck]=useState('')
-    const [id,setId]=useState('')
+    //const [id,setId]=useState('')
     const [valid, setValid]=useState(false)
-    
+
     const handleSignUp=()=>{
-        createUserWithEmailAndPassword(auth, email,password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials=>{
                 const user=userCredentials.user;
                 console.log(user.email);
-            })
-            .catch(error=>alert(error.message))
-        navigation.navigate("AfterLogin")
-    }
-
-    const handleLogin=()=>{
-        signInWithEmailAndPassword(auth, email,password)
-            .then(userCredentials=>{
-                const user =userCredentials.user;
-                console.log('Logged in with', user.email);
+                navigation.navigate("Register3",{uid: user.uid, email: user.email})
             })
             .catch(error=>alert(error.message))
     }
-
-    
 
     const ContinueButton=()=>{
         useEffect(()=>{
-            if(id.length!==0){
+            if(password.length!==0){
                 if(password===passwordCheck){
                     setValid(true);
                 }
@@ -44,7 +33,7 @@ const RegisterScreen=({ navigation })=>{
                 }
             }
             else setValid(false);
-        },[id,password,passwordCheck])        
+        },[password,passwordCheck])        
         if(valid){
             return(
                 <View style={styles.buttonContainer}>
@@ -78,25 +67,6 @@ const RegisterScreen=({ navigation })=>{
                 <Text style={styles.textContainer}>개인정보를 입력해주세요</Text>
             </View>
             <View style={styles.inputContainer}>
-                <Text style={{fontSize:13,marginLeft:14}}>이메일</Text>
-                <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
-                    <TextInput
-                        placeholder="mapsee@happetite.com"
-                        value={email}
-                        onChangeText={text=>setEmail(text)}
-                        style={styles.input}
-                    />
-                </View>
-                
-                <Text style={{fontSize:13,marginLeft:14,marginTop:20}}>아이디</Text>
-                <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
-                    <TextInput
-                        placeholder="mapsee"
-                        value={id}
-                        onChangeText={text=>setId(text)}
-                        style={styles.input}
-                    />
-                </View>
                 <Text style={{fontSize:13,marginLeft:14, marginTop:20}}>비밀번호</Text>
                 <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
                     <TextInput
@@ -121,9 +91,10 @@ const RegisterScreen=({ navigation })=>{
             <ContinueButton/>
         </View>
     )
+
 }
 
-export default RegisterScreen
+export default RegisterScreen2
 
 const styles = StyleSheet.create({
     container: {

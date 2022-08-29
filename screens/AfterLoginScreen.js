@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const AfterLoginScreen=({navigation, route})=>{
     const param=route.params;
     return(
-        <View>
+        <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
             <View style={{alignItems:'center', justifyContent:'center',flex:1}}>
                 <Text>로그인 후 화면</Text>
             </View>

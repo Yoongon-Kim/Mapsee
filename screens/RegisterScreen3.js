@@ -1,50 +1,56 @@
 import React,{useEffect, useState} from 'react'
 import {StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Dimensions} from 'react-native'
+import { initializeApp } from "firebase/app";
 import { auth } from '../firebase'
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-
+import { getDatabase, ref, onValue, set, push, remove, off } from 'firebase/database';
+const firebaseConfig = {
+    apiKey: "AIzaSyBxfwiwG1FLmUIu4-mJkKlL3T5TEzFEJjc",
+    authDomain: "mapsee-login.firebaseapp.com",
+    projectId: "mapsee-login",
+    storageBucket: "mapsee-login.appspot.com",
+    messagingSenderId: "9089617503",
+    appId: "1:9089617503:web:4b9e4184c01fd9474e55ea"
+  };
+const app= initializeApp(firebaseConfig);
 const { height } = Dimensions.get('window');
 
-const RegisterScreen=({ navigation })=>{
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
-    const [passwordCheck,setPasswordCheck]=useState('')
+const saveUser = async (uid, email, id, firstName, lastName) => {
+    const db = getDatabase();
+        const reference1 = ref(db, '/users/'+uid);                   
+        set(reference1, {                          
+            id: id,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+        });
+}
+
+
+const RegisterScreen3=({ navigation, route })=>{
+
+    const {uid, email} = route.params;
+
     const [id,setId]=useState('')
+    const [firstName, setFirstName]=useState('')
+    const [lastName,setLastName]=useState('')
     const [valid, setValid]=useState(false)
-    
+
     const handleSignUp=()=>{
-        createUserWithEmailAndPassword(auth, email,password)
-            .then(userCredentials=>{
-                const user=userCredentials.user;
-                console.log(user.email);
-            })
-            .catch(error=>alert(error.message))
-        navigation.navigate("AfterLogin")
+        saveUser(uid, email, id, firstName, lastName)
     }
-
-    const handleLogin=()=>{
-        signInWithEmailAndPassword(auth, email,password)
-            .then(userCredentials=>{
-                const user =userCredentials.user;
-                console.log('Logged in with', user.email);
-            })
-            .catch(error=>alert(error.message))
-    }
-
-    
 
     const ContinueButton=()=>{
         useEffect(()=>{
+            setValid(false)
             if(id.length!==0){
-                if(password===passwordCheck){
-                    setValid(true);
-                }
-                else{
-                    setValid(false);
+                if(firstName.length!==0){
+                    if(lastName.length!==0){
+                        setValid(true)
+                    }
                 }
             }
-            else setValid(false);
-        },[id,password,passwordCheck])        
+        },[id, firstName, lastName])        
         if(valid){
             return(
                 <View style={styles.buttonContainer}>
@@ -74,56 +80,39 @@ const RegisterScreen=({ navigation })=>{
 
     return(
         <View style={styles.container}>
-            <View style={{width:'100%',marginBottom:10}}>
-                <Text style={styles.textContainer}>개인정보를 입력해주세요</Text>
-            </View>
             <View style={styles.inputContainer}>
-                <Text style={{fontSize:13,marginLeft:14}}>이메일</Text>
-                <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
-                    <TextInput
-                        placeholder="mapsee@happetite.com"
-                        value={email}
-                        onChangeText={text=>setEmail(text)}
-                        style={styles.input}
-                    />
-                </View>
-                
-                <Text style={{fontSize:13,marginLeft:14,marginTop:20}}>아이디</Text>
+                <Text style={{fontSize:13,marginLeft:14, marginTop:20}}>아이디를 입력해주세요</Text>
                 <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
                     <TextInput
                         placeholder="mapsee"
                         value={id}
-                        onChangeText={text=>setId(text)}
+                        onChangeText={text => setId(text)}
                         style={styles.input}
                     />
                 </View>
-                <Text style={{fontSize:13,marginLeft:14, marginTop:20}}>비밀번호</Text>
+                <Text style={{fontSize:13,marginLeft:14, marginTop:20}}>이름을 입력해주세요</Text>
                 <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
                     <TextInput
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={text => setPassword(text)}
+                        placeholder="이름"
+                        value={firstName}
+                        onChangeText={text => setFirstName(text)}
                         style={styles.input}
-                        secureTextEntry
                     />
-                </View>
-                <Text style={{fontSize:13,marginLeft:14, marginTop:20}}>비밀번호 확인</Text>
-                <View style={{borderBottomColor:'#ADB1C5', borderBottomWidth:1,marginTop:5,paddingVertical:10,marginHorizontal:10}}>
                     <TextInput
-                        placeholder="Password Check"
-                        value={passwordCheck}
-                        onChangeText={text => setPasswordCheck(text)}
+                        placeholder="성"
+                        value={lastName}
+                        onChangeText={text => setLastName(text)}
                         style={styles.input}
-                        secureTextEntry
                     />
                 </View>
             </View>
             <ContinueButton/>
         </View>
     )
+
 }
 
-export default RegisterScreen
+export default RegisterScreen3
 
 const styles = StyleSheet.create({
     container: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity,Text,Dimensions } from 'react-native';
 import { auth } from '../firebase'
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
@@ -10,7 +10,7 @@ const FirstScreen=({navigation})=>{
     useEffect(()=>{
         const unsubscribe=auth.onAuthStateChanged(user=>{
             if(user){
-                navigation.replace("AfterLogin",user.email)
+                //navigation.replace("AfterLogin",user.email)
             }
         })
 
@@ -21,11 +21,11 @@ const FirstScreen=({navigation})=>{
         navigation.navigate("Login")
     }
     const gotoRegisterScreen=()=>{
-        navigation.navigate("Register")
+        navigation.navigate("Register1")
     }
 
     return(
-        <View style={{height:height*1.1, backgroundColor:'white',alignItems:'center', justifyContent:'center',}}>
+        <View style={{height:height*1.0, backgroundColor:'white',alignItems:'center', justifyContent:'center',}}>
             <View style={{padding:height*0.3,marginBottom:height*0.2}}>
                 <Image
                 style={{alignItems:'center', justifyContent:'center'}}
