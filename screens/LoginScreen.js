@@ -15,7 +15,7 @@ const LoginScreen=({ navigation })=>{
 
     useEffect(()=>{
         const unsubscribe=auth.onAuthStateChanged(user=>{
-            if(!user){
+            if(user){
                 //navigation.replace("First")
             }
         })

@@ -1,9 +1,21 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity,Text,Dimensions } from 'react-native';
+import { auth } from '../firebase'
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 const { height } = Dimensions.get('window');
 
 const FirstScreen=({navigation})=>{
+
+    useEffect(()=>{
+        const unsubscribe=auth.onAuthStateChanged(user=>{
+            if(user){
+                navigation.replace("AfterLogin",user.email)
+            }
+        })
+
+        return unsubscribe
+    },[])
 
     const gotoEmailScreen=()=>{
         navigation.navigate("Login")
