@@ -6,8 +6,6 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import emailValidation from '../email/emailValidation';
-
 const { height } = Dimensions.get('window');
 
 const RegisterScreen1=({ navigation })=>{
