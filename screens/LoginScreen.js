@@ -16,7 +16,7 @@ const LoginScreen=({ navigation })=>{
     useEffect(()=>{
         const unsubscribe=auth.onAuthStateChanged(user=>{
             if(user){
-                //navigation.replace("First")
+                //navigation.replace("AfterLogin")
             }
         })
 
@@ -60,6 +60,7 @@ const LoginScreen=({ navigation })=>{
                     <TouchableOpacity
                         onPress={handleLogin}
                         style={styles.button}
+                        activeOpacity={0.6} 
                     >
                         <View style={{justifyContent:'center', alignItems:'center',}}>
                             <Text style={styles.buttonText}>계속하기</Text>
@@ -73,6 +74,7 @@ const LoginScreen=({ navigation })=>{
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.invalidButton}
+                    activeOpacity={0.6} 
                 >
                     <View style={{justifyContent:'center', alignItems:'center',}}>
                         <Text style={styles.invalidButtonText}>계속하기</Text>

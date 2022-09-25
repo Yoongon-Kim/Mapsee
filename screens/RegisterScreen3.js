@@ -38,6 +38,7 @@ const RegisterScreen3=({ navigation, route })=>{
 
     const handleSignUp=()=>{
         saveUser(uid, email, id, firstName, lastName)
+        navigation.navigate("AfterLogin");
     }
 
     const ContinueButton=()=>{

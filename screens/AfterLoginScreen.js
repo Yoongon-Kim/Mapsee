@@ -2,8 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ImageComponent, StyleSheet, Text, View, Platform, TouchableOpacity } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 
-import BackgroundFetch from 'react-native-background-fetch';
-import PushNotification from 'react-native-push-notification';
+
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
@@ -30,7 +29,7 @@ const saveToken = async (token) => {
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
+    shouldPlaySound: true,
     shouldSetBadge: false,
   }),
 });
@@ -98,7 +97,7 @@ const AfterLoginScreen=({navigation, route})=>{
     const message = {
       to: expoPushToken,
       sound: 'default',
-      title: 'Original Title',
+      title: 'Happetite',
       body: 'And here is the body!',
       data: { someData: 'goes here' },
     };
