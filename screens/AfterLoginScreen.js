@@ -6,31 +6,31 @@ import React, {useEffect, useRef, useState} from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set, push, remove, off } from 'firebase/database';
-const firebaseConfig = {
-  apiKey: "AIzaSyBxfwiwG1FLmUIu4-mJkKlL3T5TEzFEJjc",
-  authDomain: "mapsee-login.firebaseapp.com",
-  projectId: "mapsee-login",
-  storageBucket: "mapsee-login.appspot.com",
-  messagingSenderId: "9089617503",
-  appId: "1:9089617503:web:4b9e4184c01fd9474e55ea"
-};
-const app= initializeApp(firebaseConfig);
+// import { initializeApp } from "firebase/app";
+// import { getDatabase, ref, onValue, set, push, remove, off } from 'firebase/database';
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBxfwiwG1FLmUIu4-mJkKlL3T5TEzFEJjc",
+//   authDomain: "mapsee-login.firebaseapp.com",
+//   projectId: "mapsee-login",
+//   storageBucket: "mapsee-login.appspot.com",
+//   messagingSenderId: "9089617503",
+//   appId: "1:9089617503:web:4b9e4184c01fd9474e55ea"
+// };
+// const app= initializeApp(firebaseConfig);
 
-const saveToken = async (token) => {
-  const db = getDatabase();
-      const reference1 = ref(db, '/users/'+uid);                   
-      set(reference1, {                          
-          token:token
-      });
-}
+// const saveToken = async (token) => {
+//   const db = getDatabase();
+//       const reference1 = ref(db, '/users/'+uid);                   
+//       set(reference1, {                          
+//           token:token
+//       });
+// }
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
-    shouldSetBadge: false,
+    shouldSetBadge: true,
   }),
 });
 
@@ -88,7 +88,7 @@ const AfterLoginScreen=({navigation, route})=>{
       });
     }
 
-    saveToken(token);
+    //saveToken(token);
     
     return token;
   }
